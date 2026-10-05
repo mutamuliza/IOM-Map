@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ee458dec6ffca7e7fd3e96add3d1091a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+<div style="position:fixed;bottom:30px;right:12px;z-index:1000;
+     background:rgba(255,255,255,0.96);border-radius:8px;
+     padding:12px 15px;font-family:Arial;font-size:11px;
+     box-shadow:0 2px 8px rgba(0,0,0,0.18);min-width:185px;">
+  <div style="font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:5px;">LEGEND</div>
+  <div style="display:flex;align-items:center;margin-bottom:8px;">
+    <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png" style="width:13px;margin-right:8px;">
+    <span style="color:#333">IOM Intervention Site</span>
+  </div>
+  <div style="display:flex;align-items:center;margin-bottom:10px;">
+    <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png" style="width:13px;margin-right:8px;">
+    <span style="color:#333">EVD Affected Zone (DRC)</span>
+  </div>
+  <div style="font-size:9px;color:#888;border-top:1px solid #eee;padding-top:5px;">Hover over any pin for details</div>
+</div>
+    
+<div style="position:fixed;top:0;left:0;right:0;z-index:1000;
+     background:rgba(15,23,42,0.92);color:white;
+     text-align:center;padding:7px 0;font-family:Arial;
+     font-size:12px;font-weight:600;letter-spacing:0.5px;">
+  IOM Rwanda &nbsp;·&nbsp; Border Health Surveillance &amp; Response &nbsp;·&nbsp; January 2026
+</div>
+    
+<div style="position:fixed;bottom:30px;left:12px;z-index:1000;
+     background:rgba(255,255,255,0.96);border-radius:8px;
+     border-left:4px solid #1A6FAD;
+     padding:10px 14px;font-family:Arial;font-size:10.5px;
+     box-shadow:0 2px 8px rgba(0,0,0,0.18);max-width:215px;line-height:1.5;">
+  <div style="font-weight:700;color:#1a1a2e;font-size:11px;margin-bottom:4px;">IOM Rwanda · Border Health Response</div>
+  <div style="color:#333;margin-bottom:6px;">In January 2026, IOM reached <b>537 people</b> across <b>7 border points</b> with Mpox &amp; BEVD prevention training and PPE/IPC kit distributions.</div>
+  <div style="color:#c0392b;font-weight:600;margin-bottom:4px;">⚠ Active EVD outbreak in DRC</div>
+  <div style="color:#555;">Goma's EVD zone lies just <b>~3 km</b> from IOM's Rubavu interventions. Border health security is Rwanda's first line of defence.</div>
+</div>
+    
+            <div class="folium-map" id="map_ee458dec6ffca7e7fd3e96add3d1091a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ee458dec6ffca7e7fd3e96add3d1091a = L.map(
+                "map_ee458dec6ffca7e7fd3e96add3d1091a",
+                {
+                    center: [-0.5, 29.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_ee458dec6ffca7e7fd3e96add3d1091a);
+
+            
+
+        
+    
+            var tile_layer_eb5029690aa97d92a08996269ee1f03f = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_eb5029690aa97d92a08996269ee1f03f.addTo(map_ee458dec6ffca7e7fd3e96add3d1091a);
+        
+    
+            var tile_layer_53666b63e673726925d4b3db52641e99 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_325c2daaebfb1786e4acd423fa667d92 = new L.Control.MiniMap(
+                tile_layer_53666b63e673726925d4b3db52641e99,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": true,
+}
+            );
+            map_ee458dec6ffca7e7fd3e96add3d1091a.addControl(mini_map_325c2daaebfb1786e4acd423fa667d92);
+        
+    
+            var feature_group_82d5a135162875cc1262d026c34fdb75 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_b9af09ba415bdc4ab4a1c3fa84a50076 = L.marker(
+                [-1.6792, 29.2228],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_00a8bb715d2dca8a9aca7670a190692e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_b9af09ba415bdc4ab4a1c3fa84a50076.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Goma</b><br>
+      <span style='color:#888'>North Kivu, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_b9af09ba415bdc4ab4a1c3fa84a50076.setIcon(icon_00a8bb715d2dca8a9aca7670a190692e);
+            
+    
+            var marker_216dc5d0a669721ee272ddb54587b453 = L.marker(
+                [0.1478, 29.2939],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_bef7c2c0148d72519b6309030cc03994 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_216dc5d0a669721ee272ddb54587b453.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Butembo</b><br>
+      <span style='color:#888'>North Kivu, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_216dc5d0a669721ee272ddb54587b453.setIcon(icon_bef7c2c0148d72519b6309030cc03994);
+            
+    
+            var marker_43d0d9d76df6cc62178e6c84e2fed230 = L.marker(
+                [0.4917, 29.4736],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_dd3f3fea77d1c71a1149fb8bd2972953 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_43d0d9d76df6cc62178e6c84e2fed230.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Beni</b><br>
+      <span style='color:#888'>North Kivu, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_43d0d9d76df6cc62178e6c84e2fed230.setIcon(icon_dd3f3fea77d1c71a1149fb8bd2972953);
+            
+    
+            var marker_e04162369b1b8e958de9f0ae613bb12f = L.marker(
+                [-1.1833, 29.45],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_b88b324f10c62f5af5487a6b12fceb38 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_e04162369b1b8e958de9f0ae613bb12f.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Rutshuru</b><br>
+      <span style='color:#888'>North Kivu, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_e04162369b1b8e958de9f0ae613bb12f.setIcon(icon_b88b324f10c62f5af5487a6b12fceb38);
+            
+    
+            var marker_2be64ad926ffdc9dfabcdb6e6838485f = L.marker(
+                [-1.3978, 28.8128],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_7231f2c9f480882eb0bec9e58bf7b53f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_2be64ad926ffdc9dfabcdb6e6838485f.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Masisi</b><br>
+      <span style='color:#888'>North Kivu, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_2be64ad926ffdc9dfabcdb6e6838485f.setIcon(icon_7231f2c9f480882eb0bec9e58bf7b53f);
+            
+    
+            var marker_621b044b0249eb8d129be9e184c4a678 = L.marker(
+                [-1.4311, 28.0411],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_835e451832a3310b010744b95056b389 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_621b044b0249eb8d129be9e184c4a678.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Walikale</b><br>
+      <span style='color:#888'>Maniema, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_621b044b0249eb8d129be9e184c4a678.setIcon(icon_835e451832a3310b010744b95056b389);
+            
+    
+            var marker_7e0b5c0791b89bc023a7dd1f0872548e = L.marker(
+                [-2.4978, 28.8564],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_353362a279ed131a5bcce0854ade6fe7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_7e0b5c0791b89bc023a7dd1f0872548e.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Bukavu</b><br>
+      <span style='color:#888'>South Kivu, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_7e0b5c0791b89bc023a7dd1f0872548e.setIcon(icon_353362a279ed131a5bcce0854ade6fe7);
+            
+    
+            var marker_ae66e12ebc9f111caeeb1cc2938bc810 = L.marker(
+                [-3.3956, 29.1381],
+                {
+}
+            ).addTo(feature_group_82d5a135162875cc1262d026c34fdb75);
+        
+    
+            var icon_258be6e109a760f62c12dc36e1afaf93 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_ae66e12ebc9f111caeeb1cc2938bc810.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;padding:4px;'>
+      <b style='color:#c0392b'>⚠ EVD Affected Zone</b><br>
+      <b>Uvira</b><br>
+      <span style='color:#888'>South Kivu, DRC</span>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_ae66e12ebc9f111caeeb1cc2938bc810.setIcon(icon_258be6e109a760f62c12dc36e1afaf93);
+            
+    
+            feature_group_82d5a135162875cc1262d026c34fdb75.addTo(map_ee458dec6ffca7e7fd3e96add3d1091a);
+        
+    
+            var feature_group_0537528b0fda4bdbbed656e72e9f9fab = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_20558fdecea6976a5e7d3f5fbb81c2d4 = L.marker(
+                [-1.34138, 29.74312],
+                {
+}
+            ).addTo(feature_group_0537528b0fda4bdbbed656e72e9f9fab);
+        
+    
+            var icon_f87030e718a3451324f140d4f48c981d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_20558fdecea6976a5e7d3f5fbb81c2d4.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;min-width:180px;padding:6px 8px;'>
+      <div style='font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:4px;border-bottom:2px solid #1A6FAD;padding-bottom:3px;'>Cyanika Border</div>
+      <div style='color:#555;font-size:10px;margin-bottom:4px;'>District: Burera</div>
+      <div style='font-weight:600;color:#1A6FAD;font-size:10px;margin-bottom:3px;'>Activities carried out:</div>
+      <ul style='margin:0;padding-left:14px;color:#333;font-size:10.5px;'><li style='margin:2px 0;'>Mpox Prevention Training</li><li style='margin:2px 0;'>PPE & IPC Kit Distribution</li></ul>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_20558fdecea6976a5e7d3f5fbb81c2d4.setIcon(icon_f87030e718a3451324f140d4f48c981d);
+            
+    
+            var marker_c12768e66f0aaadef1730cd5035c0da5 = L.marker(
+                [-2.48364, 28.89278],
+                {
+}
+            ).addTo(feature_group_0537528b0fda4bdbbed656e72e9f9fab);
+        
+    
+            var icon_f1915430c467f43c7f367ffb224b0e8a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_c12768e66f0aaadef1730cd5035c0da5.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;min-width:180px;padding:6px 8px;'>
+      <div style='font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:4px;border-bottom:2px solid #1A6FAD;padding-bottom:3px;'>Rusizi I Border Post</div>
+      <div style='color:#555;font-size:10px;margin-bottom:4px;'>District: Rusizi</div>
+      <div style='font-weight:600;color:#1A6FAD;font-size:10px;margin-bottom:3px;'>Activities carried out:</div>
+      <ul style='margin:0;padding-left:14px;color:#333;font-size:10.5px;'><li style='margin:2px 0;'>IPC Kit Distribution</li></ul>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_c12768e66f0aaadef1730cd5035c0da5.setIcon(icon_f1915430c467f43c7f367ffb224b0e8a);
+            
+    
+            var marker_72748d2e438ce7867494b7d65747e831 = L.marker(
+                [-2.48161, 28.91139],
+                {
+}
+            ).addTo(feature_group_0537528b0fda4bdbbed656e72e9f9fab);
+        
+    
+            var icon_a1a96843efe4e141d7576b776057ee2a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_72748d2e438ce7867494b7d65747e831.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;min-width:180px;padding:6px 8px;'>
+      <div style='font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:4px;border-bottom:2px solid #1A6FAD;padding-bottom:3px;'>Rusizi II Border Post</div>
+      <div style='color:#555;font-size:10px;margin-bottom:4px;'>District: Rusizi</div>
+      <div style='font-weight:600;color:#1A6FAD;font-size:10px;margin-bottom:3px;'>Activities carried out:</div>
+      <ul style='margin:0;padding-left:14px;color:#333;font-size:10.5px;'><li style='margin:2px 0;'>Mpox Prevention Training</li><li style='margin:2px 0;'>PPE & IPC Kit Distribution</li></ul>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_72748d2e438ce7867494b7d65747e831.setIcon(icon_a1a96843efe4e141d7576b776057ee2a);
+            
+    
+            var marker_e56ee40f2ef2ede283dcd6fff66a1d7c = L.marker(
+                [-1.43314, 30.01584],
+                {
+}
+            ).addTo(feature_group_0537528b0fda4bdbbed656e72e9f9fab);
+        
+    
+            var icon_1aa423394ecc42fb07cb8de34c142eed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_e56ee40f2ef2ede283dcd6fff66a1d7c.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;min-width:180px;padding:6px 8px;'>
+      <div style='font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:4px;border-bottom:2px solid #1A6FAD;padding-bottom:3px;'>Gatuna OSBP</div>
+      <div style='color:#555;font-size:10px;margin-bottom:4px;'>District: Gicumbi</div>
+      <div style='font-weight:600;color:#1A6FAD;font-size:10px;margin-bottom:3px;'>Activities carried out:</div>
+      <ul style='margin:0;padding-left:14px;color:#333;font-size:10.5px;'><li style='margin:2px 0;'>Mpox Prevention Training</li></ul>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_e56ee40f2ef2ede283dcd6fff66a1d7c.setIcon(icon_1aa423394ecc42fb07cb8de34c142eed);
+            
+    
+            var marker_d30ef263f59b8a5e1103cf3cbc2dbbaa = L.marker(
+                [-1.69123, 29.25547],
+                {
+}
+            ).addTo(feature_group_0537528b0fda4bdbbed656e72e9f9fab);
+        
+    
+            var icon_2c2bac9fdd0ebd4c35cc64b86d824ca4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_d30ef263f59b8a5e1103cf3cbc2dbbaa.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;min-width:180px;padding:6px 8px;'>
+      <div style='font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:4px;border-bottom:2px solid #1A6FAD;padding-bottom:3px;'>La Corniche</div>
+      <div style='color:#555;font-size:10px;margin-bottom:4px;'>District: Rubavu</div>
+      <div style='font-weight:600;color:#1A6FAD;font-size:10px;margin-bottom:3px;'>Activities carried out:</div>
+      <ul style='margin:0;padding-left:14px;color:#333;font-size:10.5px;'><li style='margin:2px 0;'>IPC Kit Distribution</li></ul>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_d30ef263f59b8a5e1103cf3cbc2dbbaa.setIcon(icon_2c2bac9fdd0ebd4c35cc64b86d824ca4);
+            
+    
+            var marker_fdec67c3050baffb56625a5695493dcf = L.marker(
+                [-1.68161, 29.24576],
+                {
+}
+            ).addTo(feature_group_0537528b0fda4bdbbed656e72e9f9fab);
+        
+    
+            var icon_ced4b95bd8b5b1976b2de9e80ec92c6f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_fdec67c3050baffb56625a5695493dcf.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;min-width:180px;padding:6px 8px;'>
+      <div style='font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:4px;border-bottom:2px solid #1A6FAD;padding-bottom:3px;'>Pois Lourds</div>
+      <div style='color:#555;font-size:10px;margin-bottom:4px;'>District: Rubavu</div>
+      <div style='font-weight:600;color:#1A6FAD;font-size:10px;margin-bottom:3px;'>Activities carried out:</div>
+      <ul style='margin:0;padding-left:14px;color:#333;font-size:10.5px;'><li style='margin:2px 0;'>PPE Distribution</li></ul>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_fdec67c3050baffb56625a5695493dcf.setIcon(icon_ced4b95bd8b5b1976b2de9e80ec92c6f);
+            
+    
+            var marker_4c9ce1fcac204707b0ce5a68450a6c5d = L.marker(
+                [-2.38317, 30.78281],
+                {
+}
+            ).addTo(feature_group_0537528b0fda4bdbbed656e72e9f9fab);
+        
+    
+            var icon_ab4bebe0e8e7b37bea48f987401757bc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "map-marker",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_4c9ce1fcac204707b0ce5a68450a6c5d.bindTooltip(
+                `<div>
+                     <div style='font-family:Arial;font-size:11px;min-width:180px;padding:6px 8px;'>
+      <div style='font-weight:700;font-size:12px;color:#1a1a2e;margin-bottom:4px;border-bottom:2px solid #1A6FAD;padding-bottom:3px;'>Rusumo Border</div>
+      <div style='color:#555;font-size:10px;margin-bottom:4px;'>District: Kirehe</div>
+      <div style='font-weight:600;color:#1A6FAD;font-size:10px;margin-bottom:3px;'>Activities carried out:</div>
+      <ul style='margin:0;padding-left:14px;color:#333;font-size:10.5px;'><li style='margin:2px 0;'>BEVD Prevention Training</li></ul>
+    </div>
+                 </div>`,
+                {
+  "sticky": false,
+}
+            );
+        
+    
+                marker_4c9ce1fcac204707b0ce5a68450a6c5d.setIcon(icon_ab4bebe0e8e7b37bea48f987401757bc);
+            
+    
+            feature_group_0537528b0fda4bdbbed656e72e9f9fab.addTo(map_ee458dec6ffca7e7fd3e96add3d1091a);
+        
+    
+            var layer_control_00274d91059588578a1db746e5987cef_layers = {
+                base_layers : {
+                    "Topographic" : tile_layer_eb5029690aa97d92a08996269ee1f03f,
+                },
+                overlays :  {
+                    "EVD Outbreak Zones (DRC)" : feature_group_82d5a135162875cc1262d026c34fdb75,
+                    "IOM Interventions (Rwanda)" : feature_group_0537528b0fda4bdbbed656e72e9f9fab,
+                },
+            };
+            let layer_control_00274d91059588578a1db746e5987cef = L.control.layers(
+                layer_control_00274d91059588578a1db746e5987cef_layers.base_layers,
+                layer_control_00274d91059588578a1db746e5987cef_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_ee458dec6ffca7e7fd3e96add3d1091a);
+
+        
+    
+            map_ee458dec6ffca7e7fd3e96add3d1091a.fitBounds(
+                [[-4.2, 24.0], [2.5, 31.5]],
+                {}
+            );
+        
+</script>
+</html>
